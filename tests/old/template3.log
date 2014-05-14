@@ -1,0 +1,47 @@
+TOKENIZING: template3.html
+
+RAW
+
+First sentence. Second sentence! Third sentence? 4th sentence.
+
+"5th sentence". '6th sentence. 7th sentence'.
+
+WORD
+
+<span class=lrn_token>First</span>
+ <span class=lrn_token>sentence</span>
+. <span class=lrn_token>Second</span>
+ <span class=lrn_token>sentence</span>
+! <span class=lrn_token>Third</span>
+ <span class=lrn_token>sentence</span>
+? <span class=lrn_token>4th</span>
+ <span class=lrn_token>sentence</span>
+.
+
+"<span class=lrn_token>5th</span>
+ <span class=lrn_token>sentence</span>
+". '<span class=lrn_token>6th</span>
+ <span class=lrn_token>sentence</span>
+. <span class=lrn_token>7th</span>
+ <span class=lrn_token>sentence</span>
+'.
+
+SENTENCE
+
+<span class=lrn_token>First sentence</span>
+. <span class=lrn_token>Second sentence</span>
+! <span class=lrn_token>Third sentence</span>
+? <span class=lrn_token>4th sentence</span>
+.
+
+"<span class=lrn_token>5th sentence</span>
+". '<span class=lrn_token>6th sentence</span>
+. <span class=lrn_token>7th sentence</span>
+'.
+
+PARAGRAPH
+
+First sentence. Second sentence! Third sentence? 4th sentence.
+
+"5th sentence". '6th sentence. 7th sentence'.
+

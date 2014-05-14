@@ -1,0 +1,14 @@
+load("../src/assert.js");
+load("../src/index.js");
+var TOKEN_MARKER = "lrn_token";
+var testFile = scriptArgs[0];
+var t = read(testFile);
+print("TOKENIZING: " + testFile + "\n");
+print("RAW\n");
+print(t);
+print("WORD\n");
+print(tokenizer.tokenizeWord(t, TOKEN_MARKER));
+print("SENTENCE\n");
+print(tokenizer.tokenizeSentence(t, ".!?", TOKEN_MARKER));
+print("PARAGRAPH\n");
+print(tokenizer.tokenizeParagraph(t, TOKEN_MARKER));

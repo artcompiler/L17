@@ -1,0 +1,36 @@
+TOKENIZING: template6.html
+
+RAW
+
+<p>This is a paragraph containing LaTEX. Equation \(x=\left(28-x\right)\times3.14\). What is the value of \(x\)?</p>
+
+WORD
+
+<p><span class=lrn_token>This</span>
+ <span class=lrn_token>is</span>
+ <span class=lrn_token>a</span>
+ <span class=lrn_token>paragraph</span>
+ <span class=lrn_token>containing</span>
+ <span class=lrn_token>LaTEX</span>
+. <span class=lrn_token>Equation</span>
+ <span class=lrn_token>\(x=\left(28-x\right)\times3.14\)</span>
+. <span class=lrn_token>What</span>
+ <span class=lrn_token>is</span>
+ <span class=lrn_token>the</span>
+ <span class=lrn_token>value</span>
+ <span class=lrn_token>of</span>
+ <span class=lrn_token>\(x\)</span>
+?</p>
+
+SENTENCE
+
+<p><span class=lrn_token>This is a paragraph containing LaTEX</span>
+. <span class=lrn_token>Equation \(x=\left(28-x\right)\times3.14\)</span>
+. <span class=lrn_token>What is the value of \(x\)</span>
+?</p>
+
+PARAGRAPH
+
+<p class=lrn_token>This is a paragraph containing LaTEX. Equation \(x=\left(28-x\right)\times3.14\). What is the value of \(x\)?</p>
+
+

@@ -1,0 +1,27 @@
+TOKENIZING: template5.html
+
+RAW
+
+<p>Mr. Thomas paid $5.50 for that painting.</p>
+
+WORD
+
+<p><span class=lrn_token>Mr.</span>
+ <span class=lrn_token>Thomas</span>
+ <span class=lrn_token>paid</span>
+ <span class=lrn_token>$5.50</span>
+ <span class=lrn_token>for</span>
+ <span class=lrn_token>that</span>
+ <span class=lrn_token>painting</span>
+.</p>
+
+SENTENCE
+
+<p><span class=lrn_token>Mr. Thomas paid $5.50 for that painting</span>
+.</p>
+
+PARAGRAPH
+
+<p class=lrn_token>Mr. Thomas paid $5.50 for that painting.</p>
+
+
