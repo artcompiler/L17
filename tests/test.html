@@ -5,7 +5,7 @@
 </head>
 <body>
 <script>
-var t = "A sentence $5.0.";
+var t = "A sentence <math> sentence <math>... </math> ... </math>.";
 var TOKEN_MARKER = "lrn_token";
 console.log(tokenizer.tokenizeSentence(t, ".!?", TOKEN_MARKER));
 </script>

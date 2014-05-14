@@ -58,7 +58,7 @@ var tokenizer = (function () {
     }
 
     function nextToken() {
-      var c;
+      var c, tk;
       lexeme = "";
       while (curIndex < src.length) {
         switch ((c = src.charCodeAt(curIndex++))) {
@@ -69,7 +69,11 @@ var tokenizer = (function () {
           lexeme += String.fromCharCode(c);
           return token(TK_WHITESPACE, lexeme);
         case 60:  // left angle
-          return markup(c);
+          tk = markup(c);
+          if (tk.text.toLowerCase() === "<math>") {
+            return mathML(tk);
+          }
+          return tk;
         case 92:  // backslash
           return latex(c);
         case 33:  // exclamation
@@ -126,13 +130,21 @@ var tokenizer = (function () {
       function word(c) {
         var c0;
         while (!isPuncChar(c) || !isPeriod(c)) {
-//               (c === '.'.charCodeAt(0) &&
-//                (c0 = src.charCodeAt(curIndex)) >= '0'.charCodeAt(0) && c0 <= '9'.charCodeAt(0))) {
           lexeme += String.fromCharCode(c);
           c = src.charCodeAt(curIndex++);
         }
         curIndex--;
         return token(TK_WORD, lexeme);
+      }
+
+      function mathML(tk) {
+        var c0;
+        var lexeme = tk.text;
+        while ((tk = nextToken()) && (tk.kind !== TK_MARKUP || tk.text.toLowerCase() !== "</math>")) {
+          lexeme += tk.text;
+        }
+        lexeme += tk.text;
+        return token(TK_MARKUP, lexeme);
       }
 
       function markup(c) {
