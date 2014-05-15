@@ -230,7 +230,7 @@ var tokenizer = (function () {
         text += "<span class=" + tokenClass + ">";
         text += t.toString();
         text += "</span>";
-        text += "\n";
+//        text += "\n";
         inSpan = true;
       } else {
         text += t.toString();
@@ -257,7 +257,7 @@ var tokenizer = (function () {
         }
         if (inSpan) {
           text += "</span>";
-          text += "\n";
+//          text += "\n";
           inSpan = false;
         } // Otherwise do nothing, nothing to span.
         if (isPuncChar(ch)) {
@@ -299,7 +299,7 @@ var tokenizer = (function () {
         } else if (t.text === "</p>" && inSpan) {
           // Close span.
           text += "</p>";
-          text += "\n";
+//          text += "\n";
           inSpan = false;
         } else {
           // Copy any other markup to output.
