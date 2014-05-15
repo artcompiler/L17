@@ -6,44 +6,13 @@ RAW
 
 WORD
 
-<p><span class=lrn_token>This</span>
- <span class=lrn_token>is</span>
- <span class=lrn_token>a</span>
- <strong><span class=lrn_token>template</span>
-. <span class=lrn_token>The</span>
- <span class=lrn_token>full</span>
- <span class=lrn_token>stop</span>
-</strong> <span class=lrn_token>appears</span>
- <span class=lrn_token>inside</span>
- <span class=lrn_token>a</span>
- <span class=lrn_token>strong</span>
- <span class=lrn_token>tag</span>
-. <span class=lrn_token>And</span>
- <span class=lrn_token>here</span>
- <span class=lrn_token>is</span>
- <span class=lrn_token>another</span>
- <span class=lrn_token>sentence</span>
- <span class=lrn_token>where</span>
- <strong><span class=lrn_token>the</span>
- <span class=lrn_token>full</span>
- <span class=lrn_token>stop</span>
-</strong> <span class=lrn_token>is</span>
- <span class=lrn_token>not</span>
- <span class=lrn_token>within</span>
- <span class=lrn_token>a</span>
- <span class=lrn_token>strong</span>
- <span class=lrn_token>tag</span>
-.</p>
+<p><span class=lrn_token>This</span> <span class=lrn_token>is</span> <span class=lrn_token>a</span> <strong><span class=lrn_token>template</span>. <span class=lrn_token>The</span> <span class=lrn_token>full</span> <span class=lrn_token>stop</span></strong> <span class=lrn_token>appears</span> <span class=lrn_token>inside</span> <span class=lrn_token>a</span> <span class=lrn_token>strong</span> <span class=lrn_token>tag</span>. <span class=lrn_token>And</span> <span class=lrn_token>here</span> <span class=lrn_token>is</span> <span class=lrn_token>another</span> <span class=lrn_token>sentence</span> <span class=lrn_token>where</span> <strong><span class=lrn_token>the</span> <span class=lrn_token>full</span> <span class=lrn_token>stop</span></strong> <span class=lrn_token>is</span> <span class=lrn_token>not</span> <span class=lrn_token>within</span> <span class=lrn_token>a</span> <span class=lrn_token>strong</span> <span class=lrn_token>tag</span>.</p>
 
 SENTENCE
 
-<p><span class=lrn_token>This is a <strong>template</span>
-. <span class=lrn_token>The full stop</strong> appears inside a strong tag</span>
-. <span class=lrn_token>And here is another sentence where <strong>the full stop</strong> is not within a strong tag</span>
-.</p>
+<p><span class=lrn_token>This is a <strong>template</span>. <span class=lrn_token>The full stop</strong> appears inside a strong tag</span>. <span class=lrn_token>And here is another sentence where <strong>the full stop</strong> is not within a strong tag</span>.</p>
 
 PARAGRAPH
 
 <p class=lrn_token>This is a <strong>template. The full stop</strong> appears inside a strong tag. And here is another sentence where <strong>the full stop</strong> is not within a strong tag.</p>
-
 

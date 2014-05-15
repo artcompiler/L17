@@ -43,85 +43,38 @@ RAW
 
 WORD
 
-<p><span class=lrn_token>First</span>
- <span class=lrn_token>sentence</span>
-. <span class=lrn_token>Second</span>
- <span class=lrn_token>sentence</span>
-! <span class=lrn_token>Third</span>
- <span class=lrn_token>sentence</span>
-? <span class=lrn_token>4th</span>
- <span class=lrn_token>sentence</span>
-.</p>
+<p><span class=lrn_token>First</span> <span class=lrn_token>sentence</span>. <span class=lrn_token>Second</span> <span class=lrn_token>sentence</span>! <span class=lrn_token>Third</span> <span class=lrn_token>sentence</span>? <span class=lrn_token>4th</span> <span class=lrn_token>sentence</span>.</p>
 
 <ul>
-    <li><span class=lrn_token>List</span>
- <span class=lrn_token>1</span>
-</li>
-    <li><span class=lrn_token>List</span>
- <span class=lrn_token>2</span>
-
+    <li><span class=lrn_token>List</span> <span class=lrn_token>1</span></li>
+    <li><span class=lrn_token>List</span> <span class=lrn_token>2</span>
     <ol>
-        <li><span class=lrn_token>Item</span>
- <span class=lrn_token>a</span>
-</li>
-        <li><span class=lrn_token>Item</span>
- <span class=lrn_token>b</span>
-</li>
+        <li><span class=lrn_token>Item</span> <span class=lrn_token>a</span></li>
+        <li><span class=lrn_token>Item</span> <span class=lrn_token>b</span></li>
     </ol>
     </li>
-    <li><span class=lrn_token>List</span>
- <span class=lrn_token>3</span>
-<br /><span class=lrn_token>Lorem</span>
- <span class=lrn_token>ipsum</span>
-</li>
+    <li><span class=lrn_token>List</span> <span class=lrn_token>3</span><br /><span class=lrn_token>Lorem</span> <span class=lrn_token>ipsum</span></li>
 </ul>
 
-<p><span class=lrn_token>Another</span>
- <span class=lrn_token>sentence</span>
-.</p>
+<p><span class=lrn_token>Another</span> <span class=lrn_token>sentence</span>.</p>
 
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th scope="col"><span class=lrn_token>Column</span>
- <span class=lrn_token>1</span>
-</th>
-            <th scope="col"><span class=lrn_token>Column</span>
- <span class=lrn_token>2</span>
-</th>
+            <th scope="col"><span class=lrn_token>Column</span> <span class=lrn_token>1</span></th>
+            <th scope="col"><span class=lrn_token>Column</span> <span class=lrn_token>2</span></th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td><span class=lrn_token>Some</span>
- <span class=lrn_token>sentence</span>
-. <span class=lrn_token>And</span>
- <span class=lrn_token>another</span>
- <span class=lrn_token>sentence</span>
-.</td>
-            <td><span class=lrn_token>Sentence</span>
- <span class=lrn_token>but</span>
- <span class=lrn_token>does</span>
- <span class=lrn_token>not</span>
- <span class=lrn_token>end</span>
- <span class=lrn_token>with</span>
- <span class=lrn_token>punctuation</span>
-</td>
+            <td><span class=lrn_token>Some</span> <span class=lrn_token>sentence</span>. <span class=lrn_token>And</span> <span class=lrn_token>another</span> <span class=lrn_token>sentence</span>.</td>
+            <td><span class=lrn_token>Sentence</span> <span class=lrn_token>but</span> <span class=lrn_token>does</span> <span class=lrn_token>not</span> <span class=lrn_token>end</span> <span class=lrn_token>with</span> <span class=lrn_token>punctuation</span></td>
         </tr>
         <tr>
-            <td><span class=lrn_token>Another</span>
- <span class=lrn_token>row</span>
-.</td>
+            <td><span class=lrn_token>Another</span> <span class=lrn_token>row</span>.</td>
             <td>
-            <p><span class=lrn_token>Row</span>
- <span class=lrn_token>wrapped</span>
- <span class=lrn_token>with</span>
- <span class=lrn_token>p</span>
- <span class=lrn_token>tag</span>
-.</p>
-            <p><span class=lrn_token>And</span>
- <span class=lrn_token>more</span>
-.</p>
+            <p><span class=lrn_token>Row</span> <span class=lrn_token>wrapped</span> <span class=lrn_token>with</span> <span class=lrn_token>p</span> <span class=lrn_token>tag</span>.</p>
+            <p><span class=lrn_token>And</span> <span class=lrn_token>more</span>.</p>
             </td>
         </tr>
     </tbody>
@@ -131,55 +84,38 @@ WORD
 
 SENTENCE
 
-<p><span class=lrn_token>First sentence</span>
-. <span class=lrn_token>Second sentence</span>
-! <span class=lrn_token>Third sentence</span>
-? <span class=lrn_token>4th sentence</span>
-.</p>
+<p><span class=lrn_token>First sentence</span>. <span class=lrn_token>Second sentence</span>! <span class=lrn_token>Third sentence</span>? <span class=lrn_token>4th sentence</span>.</p>
 
 <ul>
-    <li><span class=lrn_token>List 1</span>
-</li>
+    <li><span class=lrn_token>List 1</span></li>
     <li><span class=lrn_token>List 2
-   </span>
- <ol>
-        <li><span class=lrn_token>Item a</span>
-</li>
-        <li><span class=lrn_token>Item b</span>
-</li>
+   </span> <ol>
+        <li><span class=lrn_token>Item a</span></li>
+        <li><span class=lrn_token>Item b</span></li>
     </ol>
     </li>
-    <li><span class=lrn_token>List 3<br />Lorem ipsum</span>
-</li>
+    <li><span class=lrn_token>List 3<br />Lorem ipsum</span></li>
 </ul>
 
-<p><span class=lrn_token>Another sentence</span>
-.</p>
+<p><span class=lrn_token>Another sentence</span>.</p>
 
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th scope="col"><span class=lrn_token>Column 1</th>
             <th scope="col">Column 2</th>
-       </span>
- </tr>
+       </span> </tr>
     </thead>
     <tbody>
         <tr>
-            <td><span class=lrn_token>Some sentence</span>
-. <span class=lrn_token>And another sentence</span>
-.</td>
-            <td><span class=lrn_token>Sentence but does not end with punctuation</span>
-</td>
+            <td><span class=lrn_token>Some sentence</span>. <span class=lrn_token>And another sentence</span>.</td>
+            <td><span class=lrn_token>Sentence but does not end with punctuation</span></td>
         </tr>
         <tr>
-            <td><span class=lrn_token>Another row</span>
-.</td>
+            <td><span class=lrn_token>Another row</span>.</td>
             <td>
-            <p><span class=lrn_token>Row wrapped with p tag</span>
-.</p>
-            <p><span class=lrn_token>And more</span>
-.</p>
+            <p><span class=lrn_token>Row wrapped with p tag</span>.</p>
+            <p><span class=lrn_token>And more</span>.</p>
             </td>
         </tr>
     </tbody>
@@ -190,7 +126,6 @@ SENTENCE
 PARAGRAPH
 
 <p class=lrn_token>First sentence. Second sentence! Third sentence? 4th sentence.</p>
-
 
 <ul>
     <li>List 1</li>
@@ -204,7 +139,6 @@ PARAGRAPH
 </ul>
 
 <p class=lrn_token>Another sentence.</p>
-
 
 <table class="table table-bordered table-striped">
     <thead>
@@ -222,9 +156,7 @@ PARAGRAPH
             <td>Another row.</td>
             <td>
             <p class=lrn_token>Row wrapped with p tag.</p>
-
             <p class=lrn_token>And more.</p>
-
             </td>
         </tr>
     </tbody>
