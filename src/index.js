@@ -55,26 +55,43 @@ var tokenizer = (function () {
   function scanner(src) {
 
     var curIndex = 0;
-    var lexeme = "";
+    var lexeme = ""
+    var prevIndex;   // Only works for one char of backup.
+    var charStack = [];
 
     return {
       nextToken : nextToken ,
       lexeme : function () { return lexeme } ,
     }
 
-    var prevCurIndex;   // Only works for one char of backup.
+    function prevChar() {
+      return charStack[charStack.length-2];
+    }
 
     function currChar() {
-      prevChar();
-      return nextChar();
+      return charStack[charStack.length-1];
+    }
+
+    function peekChar() {
+      var c = nextChar();
+      backupCurIndex();
+      return c;
+    }
+
+    function pushChar(c) {
+      if (charStack.length > 1) {
+        charStack.shift();  // Throw away unused chars
+      }
+      charStack.push(c);
     }
 
     function nextChar() {
-      prevCurIndex = curIndex;
+      var c, name;
+      prevIndex = curIndex;
       if (curIndex >= src.length) {
         return 0;
       }
-      var c = src.charCodeAt(curIndex++);
+      c = src.charCodeAt(curIndex++);
       if (c === 38) { // ampersand
         name = "";
         while ((c = src.charCodeAt(curIndex++)) !== 59) {  // semicolon
@@ -85,12 +102,13 @@ var tokenizer = (function () {
         assert(c, "Unknown entity name");
       }
 //      print("curIndex=" + curIndex + " c=" + c + " ch=" + String.fromCharCode(c));
-      
+
+      pushChar(c);
       return c;
     }
 
-    function prevChar() {
-      curIndex = prevCurIndex;
+    function backupCurIndex() {
+      curIndex = prevIndex;
     }
 
     function nextToken() {
@@ -143,14 +161,14 @@ var tokenizer = (function () {
           lexeme += String.fromCharCode(c);
           c = nextChar();
         }
-        prevChar();
+        backupCurIndex();
         return token(TK_NUM, lexeme);
       }
 
       function isPeriod(c) {
         var c0;
         if (c === '.'.charCodeAt(0)) {
-          if ((c0 = currChar()) >= '0'.charCodeAt(0) &&
+          if ((c0 = prevChar()) >= '0'.charCodeAt(0) &&
               c0 <= '9'.charCodeAt(0)) {
             // 1.2
             return false;
@@ -168,7 +186,7 @@ var tokenizer = (function () {
           lexeme += String.fromCharCode(c);
           c = nextChar();
         }
-        prevChar();
+        backupCurIndex();
         return token(TK_WORD, lexeme);
       }
 
@@ -199,7 +217,7 @@ var tokenizer = (function () {
         lexeme += String.fromCharCode(c);
         c = nextChar();
         if (c === '('.charCodeAt(0)) {
-          while (c && !(c === '\\'.charCodeAt(0) && currChar() === ')'.charCodeAt(0))) {
+          while (c && !(c === '\\'.charCodeAt(0) && peekChar() === ')'.charCodeAt(0))) {
             lexeme += String.fromCharCode(c);
             c = nextChar();
           }
@@ -211,7 +229,7 @@ var tokenizer = (function () {
             lexeme += String.fromCharCode(c);
             c = nextChar();
           }
-          prevChar();
+          backupCurIndex();
         }
         return token(TK_LATEX, lexeme);
       }
@@ -231,7 +249,6 @@ var tokenizer = (function () {
         text += "<span class=" + tokenClass + ">";
         text += t.toString();
         text += "</span>";
-//        text += "\n";
         inSpan = true;
       } else {
         text += t.toString();
@@ -258,7 +275,6 @@ var tokenizer = (function () {
         }
         if (inSpan) {
           text += "</span>";
-//          text += "\n";
           inSpan = false;
         } // Otherwise do nothing, nothing to span.
         if (isPuncChar(ch)) {
@@ -300,7 +316,6 @@ var tokenizer = (function () {
         } else if (t.text === "</p>" && inSpan) {
           // Close span.
           text += "</p>";
-//          text += "\n";
           inSpan = false;
         } else {
           // Copy any other markup to output.

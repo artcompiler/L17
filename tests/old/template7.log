@@ -8,6 +8,13 @@ RAW
 
 <p>What is the value of <math><mi>x</mi></math>?</p>
 
+&lt;p&gt;This is a template containing MathML.&lt;/p&gt;
+
+&lt;math&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;5&lt;/mn&gt;&lt;mo&gt;-&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;/math&gt;
+
+&lt;p&gt;What is the value of &lt;math&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;/math&gt;?&lt;/p&gt;
+
+
 WORD
 
 <p><span class=lrn_token>This</span> <span class=lrn_token>is</span> <span class=lrn_token>a</span> <span class=lrn_token>template</span> <span class=lrn_token>containing</span> <span class=lrn_token>MathML</span>.</p>
@@ -15,6 +22,13 @@ WORD
 <math><mi>x</mi><mo>=</mo><mn>5</mn><mo>-</mo><mi>x</mi></math>
 
 <p><span class=lrn_token>What</span> <span class=lrn_token>is</span> <span class=lrn_token>the</span> <span class=lrn_token>value</span> <span class=lrn_token>of</span> <math><mi>x</mi></math>?</p>
+
+<p><span class=lrn_token>This</span> <span class=lrn_token>is</span> <span class=lrn_token>a</span> <span class=lrn_token>template</span> <span class=lrn_token>containing</span> <span class=lrn_token>MathML</span>.</p>
+
+<math><mi>x</mi><mo>=</mo><mn>5</mn><mo>-</mo><mi>x</mi></math>
+
+<p><span class=lrn_token>What</span> <span class=lrn_token>is</span> <span class=lrn_token>the</span> <span class=lrn_token>value</span> <span class=lrn_token>of</span> <math><mi>x</mi></math>?</p>
+
 
 SENTENCE
 
@@ -24,6 +38,13 @@ SENTENCE
 
 <p><span class=lrn_token>What is the value of <math><mi>x</mi></math></span>?</p>
 
+<p><span class=lrn_token>This is a template containing MathML</span>.</p>
+
+<math><mi>x</mi><mo>=</mo><mn>5</mn><mo>-</mo><mi>x</mi></math>
+
+<p><span class=lrn_token>What is the value of <math><mi>x</mi></math></span>?</p>
+
+
 PARAGRAPH
 
 <p class=lrn_token>This is a template containing MathML.</p>
@@ -31,4 +52,11 @@ PARAGRAPH
 <math><mi>x</mi><mo>=</mo><mn>5</mn><mo>-</mo><mi>x</mi></math>
 
 <p class=lrn_token>What is the value of <math><mi>x</mi></math>?</p>
+
+<p class=lrn_token>This is a template containing MathML.</p>
+
+<math><mi>x</mi><mo>=</mo><mn>5</mn><mo>-</mo><mi>x</mi></math>
+
+<p class=lrn_token>What is the value of <math><mi>x</mi></math>?</p>
+
 

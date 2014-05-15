@@ -1,7 +1,7 @@
 load("../src/assert.js");
 load("../src/index.js");
 var TOKEN_MARKER = "lrn_token";
-var testFile = arguments[0];
+var testFile = scriptArgs[0];
 var t = read(testFile);
 print("TOKENIZING: " + testFile + "\n");
 print("RAW\n");
