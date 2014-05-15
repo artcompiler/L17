@@ -85,6 +85,7 @@ var tokenizer = (function () {
         assert(c, "Unknown entity name");
       }
 //      print("curIndex=" + curIndex + " c=" + c + " ch=" + String.fromCharCode(c));
+      
       return c;
     }
 
