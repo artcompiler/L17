@@ -1,5 +1,21 @@
 /* -*- Mode: js; js-indent-level: 2; indent-tabs-mode: nil; tab-width: 2 -*- */
 /* vim: set shiftwidth=2 tabstop=2 autoindent cindent expandtab: */
+/*
+ * Copyright 2014 Art Compiler LLC
+ * Copyright 2014 Learnosity Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 var tokenizer = (function () {
   function token(kind, text) {
@@ -139,7 +155,7 @@ var tokenizer = (function () {
           return token(TK_WHITESPACE, lexeme);
         case 60:  // left angle
           tk = markup(c);
-          if (tk.text.toLowerCase() === "<math>") {
+          if (isMarkup(tk, "<math>")) {
             return mathML(tk);
           }
           return tk;
@@ -209,7 +225,7 @@ var tokenizer = (function () {
       function mathML(tk) {
         var lexeme = "";
         lexeme += tk.text;
-        while ((tk = nextToken()) && (tk.kind !== TK_MARKUP || tk.text.toLowerCase() !== "</math>")) {
+        while ((tk = nextToken()) && (tk.kind !== TK_MARKUP || !isMarkup(tk, "</math>"))) {
           lexeme += tk.text;
         }
         lexeme += tk.text;
@@ -364,8 +380,9 @@ var tokenizer = (function () {
     return t.kind === TK_PUNC;
   }
 
-  function isMarkup(t) {
-    return t.kind === TK_MARKUP;
+  function isMarkup(t, name) {
+    // If name is provided, then check it otherwise ignore token text.
+    return t.kind === TK_MARKUP && (!name || t.text.toLowerCase() === name);
   }
 
 
