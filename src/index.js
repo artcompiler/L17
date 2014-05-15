@@ -21,7 +21,22 @@ var tokenizer = (function () {
   var TK_NUM = 0x04;
   var TK_MARKUP = 0x05;
   var TK_LATEX = 0x06;
-  var PUNC_CHARS = " \t\n.,!?<'\"&;";
+  var PUNC_CHARS = [
+    " ",
+    "\t",
+    "\n",
+    ".",
+    ",",
+    "!",
+    "?",
+    "<",
+    "'",
+    "\"",
+    "&",
+    ";",
+    // More puncuation characters here.
+  ];
+
   var DELIMS = [
     ".",
     "!",
@@ -35,16 +50,19 @@ var tokenizer = (function () {
     "</tr>",
     "<td>",
     "</td>",
+    // More delimiters here.
   ];
   
   var ABBREV = [
     "Mr",
     "Mrs",
+    // More abbreviations here.
   ];
 
   var ENTITIES = {
     "lt": 60,
     "gt": 62,
+    // More entities here.
   };
   
   function isPuncChar(c) {
@@ -61,7 +79,6 @@ var tokenizer = (function () {
 
     return {
       nextToken : nextToken ,
-      lexeme : function () { return lexeme } ,
     }
 
     function prevChar() {
@@ -101,8 +118,6 @@ var tokenizer = (function () {
         c = ENTITIES[name];
         assert(c, "Unknown entity name");
       }
-//      print("curIndex=" + curIndex + " c=" + c + " ch=" + String.fromCharCode(c));
-
       pushChar(c);
       return c;
     }
@@ -156,6 +171,7 @@ var tokenizer = (function () {
       }
 
       function number(c) {
+        var lexeme = "";
         while (c >= '0'.charCodeAt(0) && c <= '9'.charCodeAt(0) ||
                c === '.'.charCodeAt(0)) {
           lexeme += String.fromCharCode(c);
@@ -165,7 +181,7 @@ var tokenizer = (function () {
         return token(TK_NUM, lexeme);
       }
 
-      function isPeriod(c) {
+      function isPeriod(c, lexeme) {
         var c0;
         if (c === '.'.charCodeAt(0)) {
           if ((c0 = prevChar()) >= '0'.charCodeAt(0) &&
@@ -181,8 +197,8 @@ var tokenizer = (function () {
       }
 
       function word(c) {
-        var c0;
-        while (c && (!isPuncChar(c) || !isPeriod(c))) {
+        var lexeme = "";
+        while (c && (!isPuncChar(c) || !isPeriod(c, lexeme))) {
           lexeme += String.fromCharCode(c);
           c = nextChar();
         }
@@ -191,8 +207,8 @@ var tokenizer = (function () {
       }
 
       function mathML(tk) {
-        var c0;
-        var lexeme = tk.text;
+        var lexeme = "";
+        lexeme += tk.text;
         while ((tk = nextToken()) && (tk.kind !== TK_MARKUP || tk.text.toLowerCase() !== "</math>")) {
           lexeme += tk.text;
         }
@@ -201,6 +217,7 @@ var tokenizer = (function () {
       }
 
       function markup(c) {
+        var lexeme = "";
         lexeme += String.fromCharCode(c);
         c = nextChar();
         while (c && c !== '>'.charCodeAt(0)) {
@@ -214,6 +231,7 @@ var tokenizer = (function () {
 
       // \( ... \) or \foo
       function latex(c) {
+        var lexeme = "";
         lexeme += String.fromCharCode(c);
         c = nextChar();
         if (c === '('.charCodeAt(0)) {
@@ -356,4 +374,4 @@ var tokenizer = (function () {
     tokenizeSentence: tokenizeSentence,
     tokenizeParagraph: tokenizeParagraph,
   };
-})()
+})();
