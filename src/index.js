@@ -21,7 +21,7 @@ var tokenizer = (function () {
   var TK_NUM = 0x04;
   var TK_MARKUP = 0x05;
   var TK_LATEX = 0x06;
-  var PUNC_CHARS = " \t\n.,!?<'\"";
+  var PUNC_CHARS = " \t\n.,!?<'\"&;";
   var DELIMS = [
     ".",
     "!",
@@ -41,6 +41,11 @@ var tokenizer = (function () {
     "Mr",
     "Mrs",
   ];
+
+  var ENTITIES = {
+    "lt": 60,
+    "gt": 62,
+  };
   
   function isPuncChar(c) {
     var ch = String.fromCharCode(c);
@@ -57,11 +62,41 @@ var tokenizer = (function () {
       lexeme : function () { return lexeme } ,
     }
 
+    var prevCurIndex;   // Only works for one char of backup.
+
+    function currChar() {
+      prevChar();
+      return nextChar();
+    }
+
+    function nextChar() {
+      prevCurIndex = curIndex;
+      if (curIndex >= src.length) {
+        return 0;
+      }
+      var c = src.charCodeAt(curIndex++);
+      if (c === 38) { // ampersand
+        name = "";
+        while ((c = src.charCodeAt(curIndex++)) !== 59) {  // semicolon
+          assert(curIndex < src.length, "Broken entity");
+          name += String.fromCharCode(c);
+        }
+        c = ENTITIES[name];
+        assert(c, "Unknown entity name");
+      }
+//      print("curIndex=" + curIndex + " c=" + c + " ch=" + String.fromCharCode(c));
+      return c;
+    }
+
+    function prevChar() {
+      curIndex = prevCurIndex;
+    }
+
     function nextToken() {
       var c, tk;
       lexeme = "";
-      while (curIndex < src.length) {
-        switch ((c = src.charCodeAt(curIndex++))) {
+      while ((c = nextChar())) {
+        switch (c) {
         case 32:  // space
         case 9:   // tab
         case 10:  // new line
@@ -105,17 +140,16 @@ var tokenizer = (function () {
         while (c >= '0'.charCodeAt(0) && c <= '9'.charCodeAt(0) ||
                c === '.'.charCodeAt(0)) {
           lexeme += String.fromCharCode(c);
-          c = src.charCodeAt(curIndex++);
+          c = nextChar();
         }
-        curIndex--;
-        
+        prevChar();
         return token(TK_NUM, lexeme);
       }
 
       function isPeriod(c) {
         var c0;
         if (c === '.'.charCodeAt(0)) {
-          if ((c0 = src.charCodeAt(curIndex)) >= '0'.charCodeAt(0) &&
+          if ((c0 = currChar()) >= '0'.charCodeAt(0) &&
               c0 <= '9'.charCodeAt(0)) {
             // 1.2
             return false;
@@ -129,11 +163,11 @@ var tokenizer = (function () {
 
       function word(c) {
         var c0;
-        while (!isPuncChar(c) || !isPeriod(c)) {
+        while (c && (!isPuncChar(c) || !isPeriod(c))) {
           lexeme += String.fromCharCode(c);
-          c = src.charCodeAt(curIndex++);
+          c = nextChar();
         }
-        curIndex--;
+        prevChar();
         return token(TK_WORD, lexeme);
       }
 
@@ -149,10 +183,10 @@ var tokenizer = (function () {
 
       function markup(c) {
         lexeme += String.fromCharCode(c);
-        c = src.charCodeAt(curIndex++);
-        while (c !== '>'.charCodeAt(0)) {
+        c = nextChar();
+        while (c && c !== '>'.charCodeAt(0)) {
           lexeme += String.fromCharCode(c);
-          c = src.charCodeAt(curIndex++);
+          c = nextChar();
         }
         assert(c === ">".charCodeAt(0));
         lexeme += String.fromCharCode(c);
@@ -162,21 +196,21 @@ var tokenizer = (function () {
       // \( ... \) or \foo
       function latex(c) {
         lexeme += String.fromCharCode(c);
-        c = src.charCodeAt(curIndex++);
+        c = nextChar();
         if (c === '('.charCodeAt(0)) {
-          while (!(c === '\\'.charCodeAt(0) && src.charCodeAt(curIndex) === ')'.charCodeAt(0))) {
+          while (c && !(c === '\\'.charCodeAt(0) && currChar() === ')'.charCodeAt(0))) {
             lexeme += String.fromCharCode(c);
-            c = src.charCodeAt(curIndex++);
+            c = nextChar();
           }
           lexeme += String.fromCharCode(c);
-          c = src.charCodeAt(curIndex++);
+          c = nextChar();
           lexeme += String.fromCharCode(c);
         } else {
-          while (c >= 'a'.charCodeAt(0) && c <= 'z'.charCodeAt(0)) {
+          while (c && c >= 'a'.charCodeAt(0) && c <= 'z'.charCodeAt(0)) {
             lexeme += String.fromCharCode(c);
-            c = src.charCodeAt(curIndex++);
+            c = nextChar();
           }
-          curIndex--;
+          prevChar();
         }
         return token(TK_LATEX, lexeme);
       }

@@ -5,9 +5,9 @@
 </head>
 <body>
 <script>
-var t = "A sentence <math> sentence <math>... </math> ... </math>.";
+var t = "<p>This is a paragraph containing LaTEX. Equation \(x=\left(28-x\right)\times3.14\). What is the value of \(x\)?</p>";
 var TOKEN_MARKER = "lrn_token";
-console.log(tokenizer.tokenizeSentence(t, ".!?", TOKEN_MARKER));
+console.log(tokenizer.tokenizeWord(t, TOKEN_MARKER));
 </script>
 </body>
 </html>
