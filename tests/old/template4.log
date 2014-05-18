@@ -176,9 +176,9 @@ SENTENCE
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th scope="col"><span class=lrn_token>Column 1</th>
-            <th scope="col">Column 2</th>
-       </span> </tr>
+            <th scope="col"><span class=lrn_token>Column 1</span></th>
+            <th scope="col"><span class=lrn_token>Column 2</span></th>
+        </tr>
     </thead>
     <tbody>
         <tr>
@@ -213,9 +213,9 @@ SENTENCE
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th scope="col"><span class=lrn_token>Column 1</th>
-            <th scope="col">Column 2</th>
-       </span> </tr>
+            <th scope="col"><span class=lrn_token>Column 1</span></th>
+            <th scope="col"><span class=lrn_token>Column 2</span></th>
+        </tr>
     </thead>
     <tbody>
         <tr>

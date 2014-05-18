@@ -53,20 +53,21 @@ var tokenizer = (function () {
     // More puncuation characters here.
   ];
 
-  var DELIMS = [
+  var SENTENCE_PUNCTUATORS = [
     ".",
     "!",
     "?",
-    "<p>",
-    "<li>",
-    "</li>",
-    "<ol>",
-    "</ol>",
-    "<tr>",
-    "</tr>",
-    "<td>",
-    "</td>",
-    // More delimiters here.
+    // More punctuators here
+  ];
+
+  var BLOCK_TAGNAMES = [
+    "p",
+    "li",
+    "ol",
+    "tr",
+    "td",
+    "th",
+    // More tag names here.
   ];
   
   var ABBREV = [
@@ -273,35 +274,35 @@ var tokenizer = (function () {
   }
 
   var tokenizeWord = function (str, tokenClass) {
-    var t, scan, inSpan, text;
+    var tk, scan, inSpan, text;
     scan = scanner(str);
     inSpan = false;
     text = "";
-    while ((t = scan.nextToken())) {
-      if (isWord(t)) {
+    while ((tk = scan.nextToken())) {
+      if (isWord(tk)) {
         // Open span.
         text += "<span class=" + tokenClass + ">";
-        text += t.toString();
+        text += tk.toString();
         text += "</span>";
         inSpan = true;
       } else {
-        text += t.toString();
+        text += tk.toString();
       }
     }
     return text;
   }
 
   var tokenizeSentence = function (str, delims, tokenClass) {
-    var t, scan, inSpan, text, ch;
+    var tk, scan, inSpan, text, ch;
     scan = scanner(str);
     inSpan = false;
     text = "";
-    while ((t = scan.nextToken())) {
-      if (isWhitespace(t) ||
-          (isMarkup(t) || isPunc(t)) && !isDelimiter(t, delims)) {
+    while ((tk = scan.nextToken())) {
+      if (isWhitespace(tk) ||
+          (isMarkup(tk) || isPunc(tk)) && !isSentenceDelimiter(tk)) {
         // Retain whitespace and markup as is.
-        text += t.toString();
-      } else if (isDelimiter(t, delims)) {
+        text += tk.toString();
+      } else if (isSentenceDelimiter(tk)) {
         // Close span.
         if (text.length && (isPuncChar((ch = text[text.length - 1].charCodeAt(0))))) {
           // Don't include trailing punctuation (e.g. "'")
@@ -314,31 +315,31 @@ var tokenizer = (function () {
         if (isPuncChar(ch)) {
           text += String.fromCharCode(ch);
         }
-        text += t.toString();
+        text += tk.toString();
       } else if (!inSpan) {
         // Open span.
         text += "<span class=" + tokenClass + ">";
-        text += t.toString();
+        text += tk.toString();
         inSpan = true;
-      } else if (t === null) {
+      } else if (tk === null) {
         // Close span. End of input.
         text += "</span>";
       } else {
         // Append token.
-        text += t.toString();
+        text += tk.toString();
       }
     }
     return text;
   }
 
   var tokenizeParagraph = function (str, tokenClass) {
-    var t, scan, inSpan, text;
+    var tk, scan, inSpan, text;
     scan = scanner(str);
     inSpan = false;
     text = "";
-    while ((t = scan.nextToken())) {
-      if (isMarkup(t)) {
-        if (t.text === "<p>") {
+    while ((tk = scan.nextToken())) {
+      if (isMarkup(tk)) {
+        if (tk.text === "<p>") {
           // Open span.
           if (inSpan) {
             // Close if not properly closed.
@@ -347,42 +348,56 @@ var tokenizer = (function () {
             text += "<p class=" + tokenClass + ">";
           }
           inSpan = true;
-        } else if (t.text === "</p>" && inSpan) {
+        } else if (tk.text === "</p>" && inSpan) {
           // Close span.
           text += "</p>";
           inSpan = false;
         } else {
           // Copy any other markup to output.
-          text += t.toString();
+          text += tk.toString();
         }
       } else {
         // Append all other tokens.
-        text += t.toString();
+        text += tk.toString();
       }
     }
     return text;
   }
 
-  function isWhitespace(t) {
-    return t.kind === TK_WHITESPACE;
+  function isWhitespace(tk) {
+    return tk.kind === TK_WHITESPACE;
   }
   
-  function isWord(t) {
-    return t.kind === TK_WORD || t.kind === TK_NUM || t.kind === TK_LATEX;
+  function isWord(tk) {
+    return tk.kind === TK_WORD || tk.kind === TK_NUM || tk.kind === TK_LATEX;
   }
 
-  function isDelimiter(t, delims) {    
-    return (t.kind === TK_MARKUP || t.kind === TK_PUNC) &&
-      DELIMS.indexOf(t.text.toLowerCase()) >= 0;
+  function tagName(str) {
+    // <foo  >, </foo>, <foo   />
+    var c, start, stop;
+    start = 1;
+    if (str[start] === "/") {
+      start++;
+    }
+    stop = start;
+    while ((c = str[stop]) >= "a" && c <= "z") {
+      stop++;
+    }
+    return str.substring(start, stop);
   }
 
-  function isPunc(t) {
-    return t.kind === TK_PUNC;
+  function isSentenceDelimiter(tk) {
+    return isPunc(tk) && SENTENCE_PUNCTUATORS.indexOf(tk.text) >= 0 ||
+      isMarkup(tk) && BLOCK_TAGNAMES.indexOf(tagName(tk.text)) >= 0;
   }
 
-  function isMarkup(t, name) {
+  function isPunc(tk) {
+    return tk.kind === TK_PUNC;
+  }
+
+  function isMarkup(tk, name) {
     // If name is provided, then check it otherwise ignore token text.
-    return t.kind === TK_MARKUP && (!name || t.text.toLowerCase() === name);
+    return tk.kind === TK_MARKUP && (!name || tk.text.toLowerCase() === name);
   }
 
 
