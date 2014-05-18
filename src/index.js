@@ -61,12 +61,20 @@ var tokenizer = (function () {
   ];
 
   var BLOCK_TAGNAMES = [
-    "p",
+    "div",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
     "li",
     "ol",
-    "tr",
+    "p",
     "td",
     "th",
+    "tr",
+    "ul",
     // More tag names here.
   ];
   
