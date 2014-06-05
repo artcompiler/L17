@@ -5,9 +5,9 @@
 </head>
 <body>
 <script>
-var t = "foo, bar.";
+var t = "<p class='A'><strong>foo</strong>, bar.</p>";
 var TOKEN_MARKER = "lrn_token";
-console.log(tokenizer.tokenizeSentence(t, "", TOKEN_MARKER));
+console.log(tokenizer.tokenizeParagraph(t, TOKEN_MARKER));
 </script>
 </body>
 </html>

@@ -6,4 +6,5 @@ js -s test.js template5.html > new/template5.log
 js -s test.js template6.html > new/template6.log
 js -s test.js template7.html > new/template7.log
 js -s test.js template8.html > new/template8.log
+js -s test.js 20140605-1.txt > new/20140605-1.log
 diff old new

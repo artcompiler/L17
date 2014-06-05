@@ -1,0 +1,18 @@
+TOKENIZING: 20140605-1.txt
+
+RAW
+
+<p class="p1"><span class="s1"><strong>Reporting</strong></span></p>
+
+WORD
+
+<p class="p1"><span class="s1"><strong><span class='lrn_token'>Reporting</span></strong></span></p>
+
+SENTENCE
+
+<p class="p1"><span class="s1"><strong><span class='lrn_token'>Reporting</strong></span></span></p>
+
+PARAGRAPH
+
+<p class="p1"><span class='lrn_token'><span class="s1"><strong>Reporting</strong></span></span></p>
+

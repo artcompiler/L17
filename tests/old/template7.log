@@ -17,46 +17,46 @@ RAW
 
 WORD
 
-<p><span class=lrn_token>This</span> <span class=lrn_token>is</span> <span class=lrn_token>a</span> <span class=lrn_token>template</span> <span class=lrn_token>containing</span> <span class=lrn_token>MathML</span>.</p>
+<p><span class='lrn_token'>This</span> <span class='lrn_token'>is</span> <span class='lrn_token'>a</span> <span class='lrn_token'>template</span> <span class='lrn_token'>containing</span> <span class='lrn_token'>MathML</span>.</p>
 
 <math><mi>x</mi><mo>=</mo><mn>5</mn><mo>-</mo><mi>x</mi></math>
 
-<p><span class=lrn_token>What</span> <span class=lrn_token>is</span> <span class=lrn_token>the</span> <span class=lrn_token>value</span> <span class=lrn_token>of</span> <math><mi>x</mi></math>?</p>
+<p><span class='lrn_token'>What</span> <span class='lrn_token'>is</span> <span class='lrn_token'>the</span> <span class='lrn_token'>value</span> <span class='lrn_token'>of</span> <math><mi>x</mi></math>?</p>
 
-<p><span class=lrn_token>This</span> <span class=lrn_token>is</span> <span class=lrn_token>a</span> <span class=lrn_token>template</span> <span class=lrn_token>containing</span> <span class=lrn_token>MathML</span>.</p>
+<p><span class='lrn_token'>This</span> <span class='lrn_token'>is</span> <span class='lrn_token'>a</span> <span class='lrn_token'>template</span> <span class='lrn_token'>containing</span> <span class='lrn_token'>MathML</span>.</p>
 
 <math><mi>x</mi><mo>=</mo><mn>5</mn><mo>-</mo><mi>x</mi></math>
 
-<p><span class=lrn_token>What</span> <span class=lrn_token>is</span> <span class=lrn_token>the</span> <span class=lrn_token>value</span> <span class=lrn_token>of</span> <math><mi>x</mi></math>?</p>
+<p><span class='lrn_token'>What</span> <span class='lrn_token'>is</span> <span class='lrn_token'>the</span> <span class='lrn_token'>value</span> <span class='lrn_token'>of</span> <math><mi>x</mi></math>?</p>
 
 
 SENTENCE
 
-<p><span class=lrn_token>This is a template containing MathML</span>.</p>
+<p><span class='lrn_token'>This is a template containing MathML</span>.</p>
 
 <math><mi>x</mi><mo>=</mo><mn>5</mn><mo>-</mo><mi>x</mi></math>
 
-<p><span class=lrn_token>What is the value of <math><mi>x</mi></math></span>?</p>
+<p><span class='lrn_token'>What is the value of <math><mi>x</mi></math></span>?</p>
 
-<p><span class=lrn_token>This is a template containing MathML</span>.</p>
+<p><span class='lrn_token'>This is a template containing MathML</span>.</p>
 
 <math><mi>x</mi><mo>=</mo><mn>5</mn><mo>-</mo><mi>x</mi></math>
 
-<p><span class=lrn_token>What is the value of <math><mi>x</mi></math></span>?</p>
+<p><span class='lrn_token'>What is the value of <math><mi>x</mi></math></span>?</p>
 
 
 PARAGRAPH
 
-<p class=lrn_token>This is a template containing MathML.</p>
+<p><span class='lrn_token'>This is a template containing MathML.</span></p>
 
 <math><mi>x</mi><mo>=</mo><mn>5</mn><mo>-</mo><mi>x</mi></math>
 
-<p class=lrn_token>What is the value of <math><mi>x</mi></math>?</p>
+<p><span class='lrn_token'>What is the value of <math><mi>x</mi></math>?</span></p>
 
-<p class=lrn_token>This is a template containing MathML.</p>
+<p><span class='lrn_token'>This is a template containing MathML.</span></p>
 
 <math><mi>x</mi><mo>=</mo><mn>5</mn><mo>-</mo><mi>x</mi></math>
 
-<p class=lrn_token>What is the value of <math><mi>x</mi></math>?</p>
+<p><span class='lrn_token'>What is the value of <math><mi>x</mi></math>?</span></p>
 
 

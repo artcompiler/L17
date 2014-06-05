@@ -289,7 +289,7 @@ var tokenizer = (function () {
     while ((tk = scan.nextToken())) {
       if (isWord(tk)) {
         // Open span.
-        text += "<span class=" + tokenClass + ">";
+        text += "<span class='" + tokenClass + "'>";
         text += tk.toString();
         text += "</span>";
         inSpan = true;
@@ -326,7 +326,7 @@ var tokenizer = (function () {
         text += tk.toString();
       } else if (!inSpan) {
         // Open span.
-        text += "<span class=" + tokenClass + ">";
+        text += "<span class='" + tokenClass + "'>";
         text += tk.toString();
         inSpan = true;
       } else if (tk === null) {
@@ -347,19 +347,21 @@ var tokenizer = (function () {
     text = "";
     while ((tk = scan.nextToken())) {
       if (isMarkup(tk)) {
-        if (tk.text === "<p>") {
+        if (tagName(tk.text) === "p") {
+          text += tk.toString();
           // Open span.
           if (inSpan) {
             // Close if not properly closed.
-            text += "</p><p class=" + tokenClass + ">";
+            text += "</span><span class='" + tokenClass + "'>";
           } else {
-            text += "<p class=" + tokenClass + ">";
+            text += "<span class='" + tokenClass + "'>";
           }
           inSpan = true;
-        } else if (tk.text === "</p>" && inSpan) {
+        } else if (tagName(tk.text) === "/p" && inSpan) {
           // Close span.
-          text += "</p>";
+          text += "</span>";
           inSpan = false;
+          text += tk.toString();
         } else {
           // Copy any other markup to output.
           text += tk.toString();
@@ -384,10 +386,10 @@ var tokenizer = (function () {
     // <foo  >, </foo>, <foo   />
     var c, start, stop;
     start = 1;
-    if (str[start] === "/") {
-      start++;
-    }
     stop = start;
+    if (str[start] === "/") {
+      stop++;
+    }
     while ((c = str[stop]) >= "a" && c <= "z") {
       stop++;
     }
@@ -396,7 +398,8 @@ var tokenizer = (function () {
 
   function isSentenceDelimiter(tk) {
     return isPunc(tk) && SENTENCE_PUNCTUATORS.indexOf(tk.text) >= 0 ||
-      isMarkup(tk) && BLOCK_TAGNAMES.indexOf(tagName(tk.text)) >= 0;
+      isMarkup(tk) && BLOCK_TAGNAMES.indexOf(tagName(tk.text)) >= 0 ||
+      isMarkup(tk) && BLOCK_TAGNAMES.indexOf(tagName(tk.text).substring(1)) >= 0;
   }
 
   function isPunc(tk) {
