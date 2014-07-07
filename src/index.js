@@ -50,6 +50,7 @@ var tokenizer = (function () {
     "\"",
     "&",
     ";",
+    ":",
     // More puncuation characters here.
   ];
 
@@ -77,7 +78,7 @@ var tokenizer = (function () {
     "ul",
     // More tag names here.
   ];
-  
+
   var ABBREV = [
     "Mr",
     "Mrs",
@@ -89,7 +90,7 @@ var tokenizer = (function () {
     "gt": 62,
     // More entities here.
   };
-  
+
   function isPuncChar(c) {
     var ch = String.fromCharCode(c);
     return PUNC_CHARS.indexOf(ch) >= 0;
@@ -181,6 +182,8 @@ var tokenizer = (function () {
         case 45:  // dash
         case 46:  // period
         case 47:  // slash
+        case 58:  // colon
+        case 59:  // semicolon
         case 61:  // equal
         case 63:  // question
         case 91:  // left bracket
@@ -377,7 +380,7 @@ var tokenizer = (function () {
   function isWhitespace(tk) {
     return tk.kind === TK_WHITESPACE;
   }
-  
+
   function isWord(tk) {
     return tk.kind === TK_WORD || tk.kind === TK_NUM || tk.kind === TK_LATEX;
   }
