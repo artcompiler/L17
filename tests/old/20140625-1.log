@@ -1,0 +1,18 @@
+TOKENIZING: 20140625-1.txt
+
+RAW
+
+<p>This is a sentence; with a subclause.</p>
+
+WORD
+
+<p><span class='lrn_token'>This</span> <span class='lrn_token'>is</span> <span class='lrn_token'>a</span> <span class='lrn_token'>sentence</span>; <span class='lrn_token'>with</span> <span class='lrn_token'>a</span> <span class='lrn_token'>subclause</span>.</p>
+
+SENTENCE
+
+<p><span class='lrn_token'>This is a sentence; with a subclause</span>.</p>
+
+PARAGRAPH
+
+<p><span class='lrn_token'>This is a sentence; with a subclause.</span></p>
+

@@ -20,7 +20,7 @@ SENTENCE
 
 PARAGRAPH
 
-First sentence. Second sentence! Third sentence? 4th sentence.
+<span class='lrn_token'>First sentence. Second sentence! Third sentence? 4th sentence.
 
 "5th sentence". '6th sentence. 7th sentence'.
-
+</span>
