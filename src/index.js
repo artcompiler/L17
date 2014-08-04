@@ -96,7 +96,7 @@ var tokenizer = (function () {
     return PUNC_CHARS.indexOf(ch) >= 0;
   }
 
-  function scanner(src) {
+  function scanner(src, isPlainText) {
 
     var curIndex = 0;
     var lexeme = ""
@@ -104,7 +104,8 @@ var tokenizer = (function () {
     var charStack = [];
 
     return {
-      nextToken : nextToken ,
+      nextToken : nextToken,
+      isPlainText: function () { return isPlainText },
     }
 
     function prevChar() {
@@ -135,9 +136,9 @@ var tokenizer = (function () {
         return 0;
       }
       c = src.charCodeAt(curIndex++);
-      if (c === 38) { // ampersand
+      if (!isPlainText && c === 38) { // ampersand
         name = "";
-        while ((c = src.charCodeAt(curIndex++)) !== 59) {  // semicolon
+        while (curIndex + 1 < src.length && (c = src.charCodeAt(curIndex++)) !== 59) {  // semicolon
           assert(curIndex < src.length, "Broken entity");
           name += String.fromCharCode(c);
         }
@@ -161,16 +162,32 @@ var tokenizer = (function () {
         case 9:   // tab
         case 10:  // new line
         case 13:  // carriage return
-          lexeme += String.fromCharCode(c);
-          return token(TK_WHITESPACE, lexeme);
+          tk = whitespace(c);
+          break;
+        case 38:  // ampersand (if isPlainText)
+          tk = token(TK_PUNC, "&amp;");
+          break;
         case 60:  // left angle
-          tk = markup(c);
-          if (isMarkup(tk, "<math>")) {
-            return mathML(tk);
+          if (isPlainText === undefined) {
+            // Not set, default to false given we see a '<'
+            isPlainText = false;
           }
-          return tk;
+          if (isPlainText) {
+            // Plain text, so don't look for markup
+            tk = token(TK_PUNC, "&lt;");
+          } else {
+            tk = markup(c);
+            if (isMarkup(tk, "<math>")) {
+              tk = mathML(tk);
+            }
+          }
+          break;
+        case 62:  // right angle (isPlainText)
+          tk = token(TK_PUNC, "&gt;");
+          break;
         case 92:  // backslash
-          return latex(c);
+          tk = latex(c);
+          break;
         case 33:  // exclamation
         case 34:  // double quote
         case 39:  // single quote
@@ -192,10 +209,16 @@ var tokenizer = (function () {
         case 123: // left brace
         case 125: // right brace
           lexeme += String.fromCharCode(c);
-          return token(TK_PUNC, lexeme); // char code is the token id
+          tk = token(TK_PUNC, lexeme); // char code is the token id
+          break;
         default:
-          return word(c);
+          tk = word(c);
+          break;
         }
+        if (isPlainText === undefined) {
+          isPlainText = true;
+        }
+        return tk;
       }
 
       function number(c) {
@@ -232,6 +255,16 @@ var tokenizer = (function () {
         }
         backupCurIndex();
         return token(TK_WORD, lexeme);
+      }
+
+      function whitespace(c) {
+        var lexeme = "";
+        while (c && isWhitespaceChar(c)) {
+          lexeme += String.fromCharCode(c);
+          c = nextChar();
+        }
+        backupCurIndex();
+        return token(TK_WHITESPACE, lexeme);
       }
 
       function mathML(tk) {
@@ -284,9 +317,9 @@ var tokenizer = (function () {
     return null;
   }
 
-  var tokenizeWord = function (str, tokenClass) {
+  var tokenizeWord = function (str, tokenClass, isPlainText) {
     var tk, scan, inSpan, text;
-    scan = scanner(str);
+    scan = scanner(str, isPlainText);
     inSpan = false;
     text = "";
     while ((tk = scan.nextToken())) {
@@ -303,9 +336,9 @@ var tokenizer = (function () {
     return text;
   }
 
-  var tokenizeSentence = function (str, delims, tokenClass) {
+  var tokenizeSentence = function (str, delims, tokenClass, isPlainText) {
     var tk, scan, inSpan, text, ch;
-    scan = scanner(str);
+    scan = scanner(str, isPlainText);
     inSpan = false;
     text = "";
     while ((tk = scan.nextToken())) {
@@ -343,38 +376,119 @@ var tokenizer = (function () {
     return text;
   }
 
-  var tokenizeParagraph = function (str, tokenClass) {
+  var tokenizeParagraph = function (str, tokenClass, isPlainText) {
     var tk, scan, inSpan, text;
-    scan = scanner(str);
+    scan = scanner(str, isPlainText);
     inSpan = false;
     text = "";
     while ((tk = scan.nextToken())) {
-      if (isMarkup(tk)) {
-        if (tagName(tk.text) === "p") {
-          text += tk.toString();
-          // Open span.
-          if (inSpan) {
-            // Close if not properly closed.
-            text += "</span><span class='" + tokenClass + "'>";
-          } else {
-            text += "<span class='" + tokenClass + "'>";
-          }
-          inSpan = true;
-        } else if (tagName(tk.text) === "/p" && inSpan) {
+      if (scan.isPlainText()) {
+        if (isIndent(tk)) {
           // Close span.
-          text += "</span>";
-          inSpan = false;
+          if (inSpan) {
+            text += "</span>";
+            inSpan = false;
+          } // Otherwise do nothing, nothing to span.
           text += tk.toString();
+        } else if (!inSpan) {
+          // Open span.
+          text += "<span class='" + tokenClass + "'>";
+          text += tk.toString();
+          inSpan = true;
+        } else if (tk === null) {
+          // Close span. End of input.
+          text += "</span>";
         } else {
-          // Copy any other markup to output.
+          // Append token.
           text += tk.toString();
         }
       } else {
-        // Append all other tokens.
-        text += tk.toString();
+        if (isMarkup(tk)) {
+          if (tagName(tk.text) === "p") {
+            text += tk.toString();
+            // Open span.
+            if (inSpan) {
+              // Close if not properly closed.
+              text += "</span><span class='" + tokenClass + "'>";
+            } else {
+              text += "<span class='" + tokenClass + "'>";
+            }
+            inSpan = true;
+          } else if (tagName(tk.text) === "/p" && inSpan) {
+            // Close span.
+            text += "</span>";
+            inSpan = false;
+            text += tk.toString();
+          } else {
+            // Copy any other markup to output.
+            text += tk.toString();
+          }
+        } else {
+          // Append all other tokens.
+          text += tk.toString();
+        }
       }
     }
+    // Make sure there is a close tag.
+    if (inSpan) {
+      text += "</span>";
+      inSpan = false;
+    }
     return text;
+  }
+
+  function isNewlineChar(c) {
+    switch (c) {
+    case 10:  // new line
+    case 13:  // carriage return
+      return true;
+    }
+    return false;
+  }
+
+  function isWhitespaceChar(c) {
+    switch (c) {
+    case 32:  // space
+    case 9:   // tab
+    case 10:  // new line
+    case 13:  // carriage return
+      return true;
+    }
+    return false;
+  }
+
+  function isIndent(tk) {
+    if (tk.kind !== TK_WHITESPACE) {
+      return false;
+    }
+    var lexeme = tk.text;
+    var START = 1, NEWLINE = 2, DONE = 3;
+    var i;
+    var state = START;
+    var spaces = 0;
+    for (i = 0; i < lexeme.length; i++) {
+      var c = lexeme.charCodeAt(i);
+      switch (state) {
+      case START:
+        if (isNewlineChar(c)) {
+          state = NEWLINE;
+        }
+        break;
+      case NEWLINE:
+        if (isNewlineChar(c)) {
+          spaces = 0;
+        } else if (isWhitespaceChar(c)) {
+          spaces++;
+        } else {
+          state = DONE;
+        }
+        break;
+      }
+    }
+    if (spaces > 1) {
+      return true;
+    }
+    return false;
   }
 
   function isWhitespace(tk) {
