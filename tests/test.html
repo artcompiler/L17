@@ -5,9 +5,9 @@
 </head>
 <body>
 <script>
-var t = "This is a paragraph.\n   this is a paragraph.";
+var t = "<p>This is an example &amp; this text should follow</p>"
 var TOKEN_MARKER = "lrn_token";
-console.log(tokenizer.tokenizeParagraph(t, TOKEN_MARKER));
+console.log(tokenizer.tokenizeParagraph(t, TOKEN_MARKER, false));
 </script>
 </body>
 </html>

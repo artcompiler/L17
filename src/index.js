@@ -86,6 +86,7 @@ var tokenizer = (function () {
   ];
 
   var ENTITIES = {
+    "amp": 38,
     "lt": 60,
     "gt": 62,
     // More entities here.

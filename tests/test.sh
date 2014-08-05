@@ -9,4 +9,5 @@ js -s test.js template8.html > new/template8.log
 js -s test.js 20140605-1.txt > new/20140605-1.log
 js -s test.js 20140625-1.txt > new/20140625-1.log
 js -s test.js 20140731-1.txt > new/20140731-1.log
+js -s test.js 20140805-1.txt > new/20140805-1.log
 diff old new
